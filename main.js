@@ -1,3 +1,14 @@
+function htmlspecialchars(text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
 $(document).ready(function() {
   $(".chat_header").click(function() {
     $(".chat_content").slideToggle("slow");
@@ -22,7 +33,7 @@ $(document).ready(function() {
   $(".enter").click(function() {
     var msg = $(".message_input").val();
     if (msg != "") {
-      $(".new_messages").append('<p class="my_message">' + msg + "</p>");
+      $(".new_messages").append('<p class="my_message">' + htmlspecialchars(msg) + "</p>");
       $(".message_input").val("");
     }
   });
